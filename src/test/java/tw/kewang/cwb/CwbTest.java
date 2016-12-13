@@ -9,7 +9,7 @@ import static org.junit.Assert.assertNull;
 public class CwbTest {
     @Before
     public void setup() {
-        Cwb.init("CWB_APIKEY");
+        Cwb.init("");
     }
 
     @Test
