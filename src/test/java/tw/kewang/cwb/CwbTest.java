@@ -1,12 +1,21 @@
 package tw.kewang.cwb;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class CwbTest {
+    @Before
+    public void setup() {
+        Cwb.init("CWB_APIKEY");
+    }
+
     @Test
-    public void testSms() {
-        assertNotNull(null);
+    public void testGeocode() {
+        assertEquals("6300100", Geocode.find("松山區").getCode());
+        assertEquals("通霄鎮", Geocode.find("1000503").getName());
+        assertNull(Geocode.find("白宮"));
     }
 }

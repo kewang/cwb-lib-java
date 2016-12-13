@@ -19,6 +19,8 @@ public class Cwb {
         Cwb.apiKey = apiKey;
 
         init = true;
+
+        Geocode.init();
     }
 
     public static String getApiKey() {
