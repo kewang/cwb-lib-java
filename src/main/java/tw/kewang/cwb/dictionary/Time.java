@@ -8,4 +8,24 @@ public class Time {
     private long endTime;
     private long dataTime;
     private List<Parameter> parameter;
+
+    public String getElementValue() {
+        return elementValue;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public long getDataTime() {
+        return dataTime;
+    }
+
+    public List<Parameter> getParameter() {
+        return parameter;
+    }
 }
