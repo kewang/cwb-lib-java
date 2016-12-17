@@ -9,14 +9,42 @@ public class FD0047 {
     private Result result;
     private boolean success;
 
+    public Records getRecords() {
+        return records;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
     public static class Records {
         private String contentDescription;
         private List<Locations> locations;
+
+        public String getContentDescription() {
+            return contentDescription;
+        }
+
+        public List<Locations> getLocations() {
+            return locations;
+        }
     }
 
     public static class Result {
         private List<Fields> fields;
         private String resource_id;
+
+        public List<Fields> getFields() {
+            return fields;
+        }
+
+        public String getResource_id() {
+            return resource_id;
+        }
 
         public static class Fields {
             private String id;

@@ -15,4 +15,8 @@ public class FutureWeatherByCity {
     public FD0047 getRawData() {
         return rawData;
     }
+
+    public String getCity() {
+        return rawData.getRecords().getLocations().get(0).getLocationsName();
+    }
 }

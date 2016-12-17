@@ -23,5 +23,7 @@ public class CwbTest {
     @Test
     public void testGetFutureWeatherByCityWithString() {
         FutureWeatherByCity weather = Cwb.getFutureWeatherByCity("彰化縣");
+
+        assertEquals("彰化縣", weather.getCity());
     }
 }
