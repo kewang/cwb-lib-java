@@ -35,9 +35,13 @@ public class CwbTest {
         FutureWeatherByCity weather1 = Cwb.getFutureWeatherByCity("彰化縣");
         FutureWeatherByCity weather2 = Cwb.getFutureWeatherByCity("049");
         FutureWeatherByCity weather3 = Cwb.getFutureWeatherByCity("猜猜看");
+        FutureWeatherByCity weather4 = Cwb.getFutureWeatherByCity("台東縣");
+        FutureWeatherByCity weather5 = Cwb.getFutureWeatherByCity("臺東縣");
 
         assertEquals("彰化縣", weather1.getCity());
         assertEquals("基隆市", weather2.getCity());
         assertEquals("找不到資料", weather3.getCity());
+        assertEquals("臺東縣", weather4.getCity());
+        assertEquals("臺東縣", weather5.getCity());
     }
 }

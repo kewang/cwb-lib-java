@@ -62,26 +62,31 @@ public class FD0047 {
         YUNLIN("025", "雲林縣"),
         CHAIYI_COUNTY("029", "嘉義縣"),
         PINGTUNG("033", "屏東縣"),
-        TAITUNG("037", "臺東縣"),
+        TAITUNG("037", "臺東縣", "台東縣"),
         HUALIEN("041", "花蓮縣"),
         PENGHU("045", "澎湖縣"),
         KEELUNG("049", "基隆市"),
         HSINCHU_CITY("053", "新竹市"),
         CHAIYI_CITY("057", "嘉義市"),
-        TAIPEI("061", "臺北市"),
+        TAIPEI("061", "臺北市", "台北市"),
         KAOSHIUNG("065", "高雄市"),
         NEWTAIPEI("069", "新北市"),
-        TAICHUNG("073", "臺中市"),
-        TAINAN("077", "臺南市"),
+        TAICHUNG("073", "臺中市", "台中市"),
+        TAINAN("077", "臺南市", "台南市"),
         LIENCHIANG("081", "連江縣"),
         KINMEN("085", "金門縣");
 
         private final String dataId;
-        private final String city;
+        private final String[] cities;
 
         ByCity(String dataId, String city) {
             this.dataId = dataId;
-            this.city = city;
+            this.cities = new String[]{city};
+        }
+
+        ByCity(String dataId, String... cities) {
+            this.dataId = dataId;
+            this.cities = cities;
         }
 
         public String getDataId() {
@@ -90,8 +95,14 @@ public class FD0047 {
 
         public static ByCity find(String data) {
             for (ByCity e : values()) {
-                if (e.dataId.equalsIgnoreCase(data) || e.city.equalsIgnoreCase(data)) {
+                if (e.dataId.equalsIgnoreCase(data)) {
                     return e;
+                }
+
+                for (String city : e.cities) {
+                    if (city.equalsIgnoreCase(data)) {
+                        return e;
+                    }
                 }
             }
 
