@@ -1,6 +1,7 @@
 package tw.kewang.cwb;
 
 import org.apache.commons.lang3.StringUtils;
+import tw.kewang.cwb.datalist.FD0047;
 import tw.kewang.cwb.pretty.FutureWeatherByCity;
 
 public class Cwb {
@@ -30,6 +31,16 @@ public class Cwb {
     }
 
     public static FutureWeatherByCity getFutureWeatherByCity(String data) {
-        return sender.sendFutureWeatherByCity(data);
+        FD0047.ByCity city = FD0047.ByCity.find(data);
+
+        if (city == null) {
+            return new FutureWeatherByCity();
+        }
+
+        return getFutureWeatherByCity(city);
+    }
+
+    public static FutureWeatherByCity getFutureWeatherByCity(FD0047.ByCity city) {
+        return sender.sendFutureWeatherByCity(city);
     }
 }

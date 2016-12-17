@@ -1,6 +1,7 @@
 package tw.kewang.cwb.pretty;
 
 import tw.kewang.cwb.datalist.FD0047;
+import tw.kewang.cwb.utils.Constants;
 
 public class FutureWeatherByCity {
     private FD0047 rawData;
@@ -17,6 +18,10 @@ public class FutureWeatherByCity {
     }
 
     public String getCity() {
+        if (rawData == null) {
+            return Constants.NOT_FOUND;
+        }
+
         return rawData.getRecords().getLocations().get(0).getLocationsName();
     }
 }

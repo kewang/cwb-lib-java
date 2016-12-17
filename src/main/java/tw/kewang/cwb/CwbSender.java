@@ -16,9 +16,7 @@ public class CwbSender {
 
     private OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new TokenInterceptor()).build();
 
-    public FutureWeatherByCity sendFutureWeatherByCity(String data) {
-        FD0047.ByCity city = FD0047.ByCity.find(data);
-
+    public FutureWeatherByCity sendFutureWeatherByCity(FD0047.ByCity city) {
         Request req = new Request.Builder().url("http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-" + city.getDataId()).build();
 
         try {

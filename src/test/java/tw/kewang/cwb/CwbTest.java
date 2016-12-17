@@ -2,6 +2,7 @@ package tw.kewang.cwb;
 
 import org.junit.Before;
 import org.junit.Test;
+import tw.kewang.cwb.datalist.FD0047;
 import tw.kewang.cwb.pretty.FutureWeatherByCity;
 
 import static org.junit.Assert.assertEquals;
@@ -21,9 +22,22 @@ public class CwbTest {
     }
 
     @Test
-    public void testGetFutureWeatherByCityWithString() {
-        FutureWeatherByCity weather = Cwb.getFutureWeatherByCity("彰化縣");
+    public void testGetFutureWeatherByCity() {
+        FutureWeatherByCity weather1 = Cwb.getFutureWeatherByCity(FD0047.ByCity.CHAIYI_COUNTY);
+        FutureWeatherByCity weather2 = Cwb.getFutureWeatherByCity(FD0047.ByCity.TAIPEI);
 
-        assertEquals("彰化縣", weather.getCity());
+        assertEquals("嘉義縣", weather1.getCity());
+        assertEquals("臺北市", weather2.getCity());
+    }
+
+    @Test
+    public void testGetFutureWeatherByCityWithString() {
+        FutureWeatherByCity weather1 = Cwb.getFutureWeatherByCity("彰化縣");
+        FutureWeatherByCity weather2 = Cwb.getFutureWeatherByCity("049");
+        FutureWeatherByCity weather3 = Cwb.getFutureWeatherByCity("猜猜看");
+
+        assertEquals("彰化縣", weather1.getCity());
+        assertEquals("基隆市", weather2.getCity());
+        assertEquals("找不到資料", weather3.getCity());
     }
 }
