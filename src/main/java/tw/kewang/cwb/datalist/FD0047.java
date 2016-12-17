@@ -11,7 +11,7 @@ public class FD0047 {
 
     public static class Records {
         private String contentDescription;
-        private Locations locations;
+        private List<Locations> locations;
     }
 
     public static class Result {
@@ -21,6 +21,32 @@ public class FD0047 {
         public static class Fields {
             private String id;
             private String type;
+        }
+    }
+
+    public enum ByCity {
+        CHANGHUA("017", "彰化縣");
+
+        private final String dataId;
+        private final String city;
+
+        ByCity(String dataId, String city) {
+            this.dataId = dataId;
+            this.city = city;
+        }
+
+        public String getDataId() {
+            return dataId;
+        }
+
+        public static ByCity find(String data) {
+            for (ByCity e : values()) {
+                if (e.dataId.equalsIgnoreCase(data) || e.city.equalsIgnoreCase(data)) {
+                    return e;
+                }
+            }
+
+            return null;
         }
     }
 }

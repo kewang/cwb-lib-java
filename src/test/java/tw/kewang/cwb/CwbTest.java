@@ -2,8 +2,7 @@ package tw.kewang.cwb;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.kewang.cwb.datalist.FutureWeatherByCity;
-import tw.kewang.cwb.datalist.FutureWeatherByTown;
+import tw.kewang.cwb.pretty.FutureWeatherByCity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -11,7 +10,7 @@ import static org.junit.Assert.assertNull;
 public class CwbTest {
     @Before
     public void setup() {
-        Cwb.init("");
+        Cwb.init("CWB_APIKEY");
     }
 
     @Test
@@ -24,21 +23,5 @@ public class CwbTest {
     @Test
     public void testGetFutureWeatherByCityWithString() {
         FutureWeatherByCity weather = Cwb.getFutureWeatherByCity("彰化縣");
-
-        assertEquals("6500500", weather.getLocationsName());
     }
-
-//    @Test
-//    public void testGetFutureWeatherByTownWithGeocode() {
-//        FutureWeatherByTown weather = Cwb.getFutureWeatherByTown(Geocode.find("新莊區"));
-//
-//        assertEquals("6500500", weather.getGeocode());
-//    }
-//
-//    @Test
-//    public void testGetFutureWeatherByTownWithString() {
-//        FutureWeatherByTown weather = Cwb.getFutureWeatherByTown("新莊區");
-//
-//        assertEquals("6500500", weather.getGeocode());
-//    }
 }

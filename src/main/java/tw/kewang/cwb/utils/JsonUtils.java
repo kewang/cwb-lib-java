@@ -1,17 +1,12 @@
 package tw.kewang.cwb.utils;
 
 import com.google.gson.Gson;
-import tw.kewang.cwb.datalist.FutureWeatherByCity;
-import tw.kewang.cwb.datalist.FutureWeatherByTown;
+import com.google.gson.GsonBuilder;
 
 public class JsonUtils {
-    public static final Gson GSON = new Gson();
+    public static final Gson GSON = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-    public static FutureWeatherByTown fromJson(String string) {
-        return GSON.fromJson(string, FutureWeatherByTown.class);
-    }
-
-    public static FutureWeatherByCity fromJsonByFutureWeatherByCity(String string) {
-        return GSON.fromJson(string, FutureWeatherByCity.class);
+    public static <T> T fromJson(String string, Class<T> clazz) {
+        return GSON.fromJson(string, clazz);
     }
 }

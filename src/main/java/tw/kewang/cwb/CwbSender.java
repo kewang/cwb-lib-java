@@ -5,10 +5,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tw.kewang.cwb.datalist.Datalist;
-import tw.kewang.cwb.datalist.FutureWeatherByCity;
-import tw.kewang.cwb.datalist.FutureWeatherByCity.ByCity;
-import tw.kewang.cwb.datalist.FutureWeatherByTown;
+import tw.kewang.cwb.datalist.FD0047;
+import tw.kewang.cwb.pretty.FutureWeatherByCity;
 import tw.kewang.cwb.utils.JsonUtils;
 
 import java.io.IOException;
@@ -18,29 +16,19 @@ public class CwbSender {
 
     private OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new TokenInterceptor()).build();
 
-    public FutureWeatherByTown send(Datalist datalist, Geocode geocode) {
-        Request req = new Request.Builder().url("http://opendata.cwb.gov.tw/api/v1/rest/dataset/F-D0047-091").build();
+    public FutureWeatherByCity sendFutureWeatherByCity(String data) {
+        FD0047.ByCity city = FD0047.ByCity.find(data);
+
+        Request req = new Request.Builder().url("http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-" + city.getDataId()).build();
 
         try {
             Response res = client.newCall(req).execute();
 
-            return JsonUtils.fromJson(res.body().string());
-        } catch (IOException e) {
-            LOG.error("Caught Exception: ", e);
+            String body = res.body().string();
 
-            return new FutureWeatherByTown();
-        }
-    }
+            FD0047 rawData = JsonUtils.fromJson(body, FD0047.class);
 
-    public FutureWeatherByCity sendFutureWeatherByCity(Datalist datalist, String data) {
-        ByCity city = ByCity.find(data);
-
-        Request req = new Request.Builder().url("http://opendata.cwb.gov.tw/api/v1/rest/dataset/F-D0047-" + city.getDataid()).build();
-
-        try {
-            Response res = client.newCall(req).execute();
-
-            return JsonUtils.fromJsonByFutureWeatherByCity(res.body().string());
+            return new FutureWeatherByCity(rawData);
         } catch (IOException e) {
             LOG.error("Caught Exception: ", e);
 
