@@ -48,6 +48,10 @@ public class Cwb {
     public static FutureWeatherByTown getFutureWeatherByTown(String data) {
         Geocode geocode = Geocode.find(data);
 
+        if (geocode == null) {
+            return new FutureWeatherByTown();
+        }
+
         return getFutureWeatherByTown(geocode);
     }
 
