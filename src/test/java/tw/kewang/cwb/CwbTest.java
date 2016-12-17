@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.kewang.cwb.datalist.FD0047;
 import tw.kewang.cwb.pretty.FutureWeatherByCity;
+import tw.kewang.cwb.pretty.FutureWeatherByTown;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -43,5 +44,19 @@ public class CwbTest {
         assertEquals("找不到資料", weather3.getCity());
         assertEquals("臺東縣", weather4.getCity());
         assertEquals("臺東縣", weather5.getCity());
+    }
+
+    @Test
+    public void testGetFutureWeatherByTown() {
+        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區");
+
+        assertEquals("新莊區", weather1.getTown());
+    }
+
+    @Test
+    public void testGetFutureWeatherByTownWithGeocode() {
+        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown(Geocode.find("新莊區"));
+
+        assertEquals("新莊區", weather1.getTown());
     }
 }
