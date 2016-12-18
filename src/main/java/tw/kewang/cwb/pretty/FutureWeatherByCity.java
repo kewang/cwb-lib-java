@@ -17,7 +17,7 @@ public class FutureWeatherByCity {
         return rawData;
     }
 
-    public String getCity() {
+    public String getName() {
         if (rawData == null) {
             return Constants.NOT_FOUND;
         }

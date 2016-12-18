@@ -7,6 +7,7 @@ import tw.kewang.cwb.pretty.FutureWeatherByCity;
 import tw.kewang.cwb.pretty.FutureWeatherByTown;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class CwbTest {
@@ -27,8 +28,8 @@ public class CwbTest {
         FutureWeatherByCity weather1 = Cwb.getFutureWeatherByCity(FD0047.ByCity.CHAIYI_COUNTY);
         FutureWeatherByCity weather2 = Cwb.getFutureWeatherByCity(FD0047.ByCity.TAIPEI);
 
-        assertEquals("嘉義縣", weather1.getCity());
-        assertEquals("臺北市", weather2.getCity());
+        assertEquals("嘉義縣", weather1.getName());
+        assertEquals("臺北市", weather2.getName());
     }
 
     @Test
@@ -39,24 +40,29 @@ public class CwbTest {
         FutureWeatherByCity weather4 = Cwb.getFutureWeatherByCity("台東縣");
         FutureWeatherByCity weather5 = Cwb.getFutureWeatherByCity("臺東縣");
 
-        assertEquals("彰化縣", weather1.getCity());
-        assertEquals("基隆市", weather2.getCity());
-        assertEquals("找不到資料", weather3.getCity());
-        assertEquals("臺東縣", weather4.getCity());
-        assertEquals("臺東縣", weather5.getCity());
+        assertEquals("彰化縣", weather1.getName());
+        assertEquals("基隆市", weather2.getName());
+        assertEquals("找不到資料", weather3.getName());
+        assertEquals("臺東縣", weather4.getName());
+        assertEquals("臺東縣", weather5.getName());
     }
 
     @Test
     public void testGetFutureWeatherByTown() {
         FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區");
+        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown("猜猜看");
 
-        assertEquals("新莊區", weather1.getTown());
+        assertEquals("新莊區", weather1.getName());
+        assertNotNull(weather1.getWeatherElementsByTime(1482139701000L));
+        assertEquals("找不到資料", weather2.getName());
     }
 
     @Test
     public void testGetFutureWeatherByTownWithGeocode() {
         FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown(Geocode.find("新莊區"));
+        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown(Geocode.find("猜猜看"));
 
-        assertEquals("新莊區", weather1.getTown());
+        assertEquals("新莊區", weather1.getName());
+        assertEquals("找不到資料", weather2.getName());
     }
 }
