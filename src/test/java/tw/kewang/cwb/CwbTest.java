@@ -49,20 +49,37 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByTown() {
-        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區");
-        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown("猜猜看");
+        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", System.currentTimeMillis() + 86400 * 1000 * 1);
+        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown("猜猜看", System.currentTimeMillis() + 86400 * 1000 * 1);
 
         assertEquals("新莊區", weather1.getName());
-        assertNotNull(weather1.getWeatherElementsByTime(1482139701000L));
+        assertNotNull(weather1.getWeatherElements());
         assertEquals("找不到資料", weather2.getName());
     }
 
     @Test
     public void testGetFutureWeatherByTownWithGeocode() {
-        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown(Geocode.find("新莊區"));
-        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown(Geocode.find("猜猜看"));
+        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown(Geocode.find("新莊區"), System.currentTimeMillis() + 86400 * 1000 * 1);
+        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown(Geocode.find("猜猜看"), System.currentTimeMillis() + 86400 * 1000 * 1);
 
         assertEquals("新莊區", weather1.getName());
         assertEquals("找不到資料", weather2.getName());
+    }
+
+    @Test
+    public void testGetFutureWeatherByTownWithWeatherElements() {
+        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", System.currentTimeMillis() + 86400 * 1000 * 1);
+
+        System.out.println(weather1.getWeatherDescription());
+        System.out.println(weather1.getApparent());
+        System.out.println(weather1.getTemperature());
+        System.out.println(weather1.getPoP());
+        System.out.println(weather1.getRH());
+
+        assertNotNull(weather1.getWeatherDescription());
+        assertNotNull(weather1.getApparent());
+        assertNotNull(weather1.getTemperature());
+        assertNotNull(weather1.getPoP());
+        assertNotNull(weather1.getRH());
     }
 }

@@ -12,6 +12,7 @@ import tw.kewang.cwb.pretty.FutureWeatherByTown;
 import tw.kewang.cwb.utils.JsonUtils;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class CwbSender {
     private static final Logger LOG = LoggerFactory.getLogger(CwbSender.class);
@@ -36,7 +37,7 @@ public class CwbSender {
         }
     }
 
-    public FutureWeatherByTown sendFutureWeatherByTown(FD0047.ByCity city, Geocode geocode) {
+    public FutureWeatherByTown sendFutureWeatherByTown(FD0047.ByCity city, Geocode geocode, Date date) {
         Request req = new Request.Builder().url("http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-" + city.getDataId()).build();
 
         try {
@@ -48,7 +49,7 @@ public class CwbSender {
 
             for (Location location : rawData.getRecords().getLocations().get(0).getLocation()) {
                 if (location.getGeocode().equalsIgnoreCase(geocode.getCode())) {
-                    return new FutureWeatherByTown(location);
+                    return new FutureWeatherByTown(location, date);
                 }
             }
 

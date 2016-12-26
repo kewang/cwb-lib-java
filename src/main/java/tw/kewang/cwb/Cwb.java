@@ -5,6 +5,8 @@ import tw.kewang.cwb.datalist.FD0047;
 import tw.kewang.cwb.pretty.FutureWeatherByCity;
 import tw.kewang.cwb.pretty.FutureWeatherByTown;
 
+import java.util.Date;
+
 public class Cwb {
     private static String apiKey;
     private static CwbSender sender = new CwbSender();
@@ -45,23 +47,27 @@ public class Cwb {
         return sender.sendFutureWeatherByCity(city);
     }
 
-    public static FutureWeatherByTown getFutureWeatherByTown(String data) {
+    public static FutureWeatherByTown getFutureWeatherByTown(String data, long timestamp) {
         Geocode geocode = Geocode.find(data);
 
         if (geocode == null) {
             return new FutureWeatherByTown();
         }
 
-        return getFutureWeatherByTown(geocode);
+        return getFutureWeatherByTown(geocode, new Date(timestamp));
     }
 
-    public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode) {
+    public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, long timestamp) {
+        return getFutureWeatherByTown(geocode, new Date(timestamp));
+    }
+
+    public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, Date date) {
         FD0047.ByCity city = FD0047.ByCity.findByTown(geocode);
 
         if (city == null) {
             return new FutureWeatherByTown();
         }
 
-        return sender.sendFutureWeatherByTown(city, geocode);
+        return sender.sendFutureWeatherByTown(city, geocode, date);
     }
 }
