@@ -13,6 +13,7 @@ import java.util.List;
 public class FutureWeatherByTown {
     private Location location;
     private Date date;
+    private Wind wind;
     private List<PrettyWeatherElement> prettyWeatherElements;
 
     public FutureWeatherByTown() {
@@ -67,24 +68,23 @@ public class FutureWeatherByTown {
                     prettyWeatherElements.add(elem1);
                     prettyWeatherElements.add(elem2);
                 } else if (elementName.equals("Wind")) {
-                    for (Parameter parameter : resultTime.getParameter()) {
-                        PrettyWeatherElement elem = new PrettyWeatherElement().setValue(parameter.getParameterValue())
-                                .setMeasure(parameter.getParameterUnit()).setDataDate(resultDate);
+                    Wind wind = new Wind().setDataDate(resultDate);
 
+                    for (Parameter parameter : resultTime.getParameter()) {
                         String parameterName = parameter.getParameterName();
 
                         if (parameterName.equals("風級")) {
-                            elem.setName("WindScale");
+                            wind.setScale(Integer.valueOf(parameter.getParameterValue()));
                         } else if (parameterName.equals("風向縮寫")) {
-                            elem.setName("WindDirectionShort");
+                            wind.setDirectionShort(parameter.getParameterValue());
                         } else if (parameterName.equals("風向描述")) {
-                            elem.setName("WindDirectionDetail");
+                            wind.setDirectionDetail(parameter.getParameterValue());
                         } else if (parameterName.equals("風速")) {
-                            elem.setName("WindSpeed");
+                            wind.setSpeed(Float.valueOf(parameter.getParameterValue()));
                         }
-
-                        prettyWeatherElements.add(elem);
                     }
+
+                    this.wind = wind;
                 } else {
                     PrettyWeatherElement elem = new PrettyWeatherElement().setName(elementName)
                             .setValue(resultTime.getElementValue()).setMeasure(weatherElement.getElementMeasure())
@@ -188,43 +188,65 @@ public class FutureWeatherByTown {
         return Float.MIN_VALUE;
     }
 
-    public int getWindScale() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("WindScale")) {
-                return Integer.valueOf(element.getValue());
-            }
-        }
-
-        return Integer.MIN_VALUE;
+    public Wind getWind() {
+        return wind;
     }
 
-    public String getWindDirectionShort() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("WindDirectionShort")) {
-                return element.getValue();
-            }
+    public static class Wind {
+        private Date dataDate;
+        private int scale;
+        private String directionShort;
+        private String directionDetail;
+        private float speed;
+
+        public Date getDataDate() {
+            return dataDate;
         }
 
-        return Constants.NOT_FOUND;
-    }
+        public Wind setDataDate(Date dataDate) {
+            this.dataDate = dataDate;
 
-    public String getWindDirectionDetail() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("WindDirectionDetail")) {
-                return element.getValue();
-            }
+            return this;
         }
 
-        return Constants.NOT_FOUND;
-    }
-
-    public float getWindSpeed() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("WindSpeed")) {
-                return Float.valueOf(element.getValue());
-            }
+        public int getScale() {
+            return scale;
         }
 
-        return Float.MIN_VALUE;
+        public Wind setScale(int scale) {
+            this.scale = scale;
+
+            return this;
+        }
+
+        public String getDirectionShort() {
+            return directionShort;
+        }
+
+        public Wind setDirectionShort(String directionShort) {
+            this.directionShort = directionShort;
+
+            return this;
+        }
+
+        public String getDirectionDetail() {
+            return directionDetail;
+        }
+
+        public Wind setDirectionDetail(String directionDetail) {
+            this.directionDetail = directionDetail;
+
+            return this;
+        }
+
+        public float getSpeed() {
+            return speed;
+        }
+
+        public Wind setSpeed(float speed) {
+            this.speed = speed;
+
+            return this;
+        }
     }
 }

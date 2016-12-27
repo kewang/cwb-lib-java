@@ -78,10 +78,11 @@ public class CwbTest {
         System.out.println(weather1.getTemperature());
         System.out.println(weather1.getPoP());
         System.out.println(weather1.getRH());
-        System.out.println(weather1.getWindDirectionDetail());
-        System.out.println(weather1.getWindDirectionShort());
-        System.out.println(weather1.getWindScale());
-        System.out.println(weather1.getWindSpeed());
+        System.out.println(weather1.getWind().getDataDate());
+        System.out.println(weather1.getWind().getDirectionDetail());
+        System.out.println(weather1.getWind().getDirectionShort());
+        System.out.println(weather1.getWind().getScale());
+        System.out.println(weather1.getWind().getSpeed());
 
         assertNotNull(weather1.getWeatherDescriptionDetail());
         assertNotNull(weather1.getWeatherDescriptionShort());
@@ -91,9 +92,10 @@ public class CwbTest {
         assertNotNull(weather1.getTemperature());
         assertNotNull(weather1.getPoP());
         assertNotNull(weather1.getRH());
-        assertNotNull(weather1.getWindDirectionDetail());
-        assertNotNull(weather1.getWindDirectionShort());
-        assertNotNull(weather1.getWindScale());
-        assertNotNull(weather1.getWindSpeed());
+        assertNotNull(weather1.getWind().getDataDate());
+        assertNotNull(weather1.getWind().getDirectionDetail());
+        assertNotNull(weather1.getWind().getDirectionShort());
+        assertNotNull(weather1.getWind().getScale());
+        assertNotNull(weather1.getWind().getSpeed());
     }
 }
