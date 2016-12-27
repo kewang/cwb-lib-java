@@ -70,16 +70,30 @@ public class CwbTest {
     public void testGetFutureWeatherByTownWithWeatherElements() {
         FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", System.currentTimeMillis() + 86400 * 1000 * 1);
 
-        System.out.println(weather1.getWeatherDescription());
+        System.out.println(weather1.getWeatherDescriptionDetail());
+        System.out.println(weather1.getWeatherDescriptionShort());
+        System.out.println(weather1.getComfortableString());
+        System.out.println(weather1.getComfortableValue());
         System.out.println(weather1.getApparent());
         System.out.println(weather1.getTemperature());
         System.out.println(weather1.getPoP());
         System.out.println(weather1.getRH());
+        System.out.println(weather1.getWindDirectionDetail());
+        System.out.println(weather1.getWindDirectionShort());
+        System.out.println(weather1.getWindScale());
+        System.out.println(weather1.getWindSpeed());
 
-        assertNotNull(weather1.getWeatherDescription());
+        assertNotNull(weather1.getWeatherDescriptionDetail());
+        assertNotNull(weather1.getWeatherDescriptionShort());
+        assertNotNull(weather1.getComfortableString());
+        assertNotNull(weather1.getComfortableValue());
         assertNotNull(weather1.getApparent());
         assertNotNull(weather1.getTemperature());
         assertNotNull(weather1.getPoP());
         assertNotNull(weather1.getRH());
+        assertNotNull(weather1.getWindDirectionDetail());
+        assertNotNull(weather1.getWindDirectionShort());
+        assertNotNull(weather1.getWindScale());
+        assertNotNull(weather1.getWindSpeed());
     }
 }
