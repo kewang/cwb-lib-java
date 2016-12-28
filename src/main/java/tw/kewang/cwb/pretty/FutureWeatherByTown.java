@@ -14,6 +14,7 @@ public class FutureWeatherByTown {
     private Location location;
     private Date date;
     private Wind wind;
+    private Comfortable comfortable;
     private List<PrettyWeatherElement> prettyWeatherElements;
 
     public FutureWeatherByTown() {
@@ -58,17 +59,10 @@ public class FutureWeatherByTown {
 
             if (resultTime != null) {
                 if (elementName.equals("CI")) {
-                    PrettyWeatherElement elem1 = new PrettyWeatherElement().setName("CIString")
-                            .setValue(resultTime.getParameter().get(0).getParameterValue())
-                            .setMeasure(weatherElement.getElementMeasure()).setDataDate(resultDate);
-                    PrettyWeatherElement elem2 = new PrettyWeatherElement().setName("CIValue")
-                            .setValue(resultTime.getElementValue()).setMeasure(weatherElement.getElementMeasure())
-                            .setDataDate(resultDate);
-
-                    prettyWeatherElements.add(elem1);
-                    prettyWeatherElements.add(elem2);
+                    comfortable = new Comfortable().setString(resultTime.getParameter().get(0).getParameterValue())
+                            .setValue(Float.valueOf(resultTime.getElementValue())).setDataDate(resultDate);
                 } else if (elementName.equals("Wind")) {
-                    Wind wind = new Wind().setDataDate(resultDate);
+                    wind = new Wind().setDataDate(resultDate);
 
                     for (Parameter parameter : resultTime.getParameter()) {
                         String parameterName = parameter.getParameterName();
@@ -83,8 +77,6 @@ public class FutureWeatherByTown {
                             wind.setSpeed(Float.valueOf(parameter.getParameterValue()));
                         }
                     }
-
-                    this.wind = wind;
                 } else {
                     PrettyWeatherElement elem = new PrettyWeatherElement().setName(elementName)
                             .setValue(resultTime.getElementValue()).setMeasure(weatherElement.getElementMeasure())
@@ -168,28 +160,12 @@ public class FutureWeatherByTown {
         return Float.MIN_VALUE;
     }
 
-    public String getComfortableString() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("CIString")) {
-                return element.getValue();
-            }
-        }
-
-        return Constants.NOT_FOUND;
-    }
-
-    public float getComfortableValue() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("CIValue")) {
-                return Float.valueOf(element.getValue());
-            }
-        }
-
-        return Float.MIN_VALUE;
-    }
-
     public Wind getWind() {
         return wind;
+    }
+
+    public Comfortable getComfortable() {
+        return comfortable;
     }
 
     public static class Wind {
@@ -245,6 +221,42 @@ public class FutureWeatherByTown {
 
         public Wind setSpeed(float speed) {
             this.speed = speed;
+
+            return this;
+        }
+    }
+
+    public static class Comfortable {
+        private Date dataDate;
+        private String string;
+        private float value;
+
+        public Date getDataDate() {
+            return dataDate;
+        }
+
+        public Comfortable setDataDate(Date dataDate) {
+            this.dataDate = dataDate;
+
+            return this;
+        }
+
+        public String getString() {
+            return string;
+        }
+
+        public Comfortable setString(String string) {
+            this.string = string;
+
+            return this;
+        }
+
+        public float getValue() {
+            return value;
+        }
+
+        public Comfortable setValue(float value) {
+            this.value = value;
 
             return this;
         }
