@@ -15,6 +15,7 @@ public class FutureWeatherByTown {
     private Date date;
     private Wind wind;
     private Comfortable comfortable;
+    private WeatherDescription weatherDescription;
     private List<PrettyWeatherElement> prettyWeatherElements;
 
     public FutureWeatherByTown() {
@@ -29,6 +30,7 @@ public class FutureWeatherByTown {
 
     private void buildPrettyWeatherElements() {
         prettyWeatherElements = new ArrayList<>();
+        weatherDescription = new WeatherDescription();
 
         for (WeatherElement weatherElement : location.getWeatherElement()) {
             Date resultDate = new Date(0);
@@ -47,13 +49,23 @@ public class FutureWeatherByTown {
                         resultTime = time;
                     }
                 } else if (date.after(startTime) && date.before(endTime)) {
-                    PrettyWeatherElement prettyWeatherElement = new PrettyWeatherElement()
-                            .setName(elementName).setMeasure(weatherElement.getElementMeasure())
-                            .setValue(time.getElementValue()).setStartDate(startTime).setEndDate(endTime);
+                    if (elementName.equals("Wx") || elementName.equals("WeatherDescription")) {
+                        weatherDescription.setStartDate(startTime).setEndDate(endTime);
 
-                    prettyWeatherElements.add(prettyWeatherElement);
+                        if (elementName.equals("Wx")) {
+                            weatherDescription.setShort(time.getElementValue());
+                        } else {
+                            weatherDescription.setDetail(time.getElementValue());
+                        }
+                    } else {
+                        PrettyWeatherElement prettyWeatherElement = new PrettyWeatherElement()
+                                .setName(elementName).setMeasure(weatherElement.getElementMeasure())
+                                .setValue(time.getElementValue()).setStartDate(startTime).setEndDate(endTime);
 
-                    break;
+                        prettyWeatherElements.add(prettyWeatherElement);
+
+                        break;
+                    }
                 }
             }
 
@@ -98,26 +110,6 @@ public class FutureWeatherByTown {
 
     public List<PrettyWeatherElement> getWeatherElements() {
         return prettyWeatherElements;
-    }
-
-    public String getWeatherDescriptionShort() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("Wx")) {
-                return element.getValue();
-            }
-        }
-
-        return Constants.NOT_FOUND;
-    }
-
-    public String getWeatherDescriptionDetail() {
-        for (PrettyWeatherElement element : prettyWeatherElements) {
-            if (element.getName().equals("WeatherDescription")) {
-                return element.getValue();
-            }
-        }
-
-        return Constants.NOT_FOUND;
     }
 
     public float getPoP() {
@@ -166,6 +158,10 @@ public class FutureWeatherByTown {
 
     public Comfortable getComfortable() {
         return comfortable;
+    }
+
+    public WeatherDescription getWeatherDescription() {
+        return weatherDescription;
     }
 
     public static class Wind {
@@ -257,6 +253,53 @@ public class FutureWeatherByTown {
 
         public Comfortable setValue(float value) {
             this.value = value;
+
+            return this;
+        }
+    }
+
+    public static class WeatherDescription {
+        private Date startDate;
+        private Date endDate;
+        private String shortDescription;
+        private String detailDescription;
+
+        public Date getStartDate() {
+            return startDate;
+        }
+
+        public WeatherDescription setStartDate(Date startDate) {
+            this.startDate = startDate;
+
+            return this;
+        }
+
+        public Date getEndDate() {
+            return endDate;
+        }
+
+        public WeatherDescription setEndDate(Date endDate) {
+            this.endDate = endDate;
+
+            return this;
+        }
+
+        public String getShort() {
+            return shortDescription;
+        }
+
+        public WeatherDescription setShort(String shortDescription) {
+            this.shortDescription = shortDescription;
+
+            return this;
+        }
+
+        public String getDetail() {
+            return detailDescription;
+        }
+
+        public WeatherDescription setDetail(String detailDescription) {
+            this.detailDescription = detailDescription;
 
             return this;
         }
