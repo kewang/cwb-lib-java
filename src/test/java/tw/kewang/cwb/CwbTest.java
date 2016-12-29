@@ -68,10 +68,10 @@ public class CwbTest {
     public void testGetFutureWeatherByTownWithWeatherElements() {
         FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", System.currentTimeMillis() + 86400 * 1000 * 1);
 
-        System.out.println(weather1.getWeatherDescription().getStartDate());
-        System.out.println(weather1.getWeatherDescription().getEndDate());
-        System.out.println(weather1.getWeatherDescription().getDetail());
-        System.out.println(weather1.getWeatherDescription().getShort());
+        System.out.println(weather1.getDescription().getStartDate());
+        System.out.println(weather1.getDescription().getEndDate());
+        System.out.println(weather1.getDescription().getDetail());
+        System.out.println(weather1.getDescription().getShort());
         System.out.println(weather1.getComfortable().getDataDate());
         System.out.println(weather1.getComfortable().getString());
         System.out.println(weather1.getComfortable().getValue());
@@ -85,10 +85,10 @@ public class CwbTest {
         System.out.println(weather1.getWind().getScale());
         System.out.println(weather1.getWind().getSpeed());
 
-        assertNotNull(weather1.getWeatherDescription().getStartDate());
-        assertNotNull(weather1.getWeatherDescription().getEndDate());
-        assertNotNull(weather1.getWeatherDescription().getDetail());
-        assertNotNull(weather1.getWeatherDescription().getShort());
+        assertNotNull(weather1.getDescription().getStartDate());
+        assertNotNull(weather1.getDescription().getEndDate());
+        assertNotNull(weather1.getDescription().getDetail());
+        assertNotNull(weather1.getDescription().getShort());
         assertNotNull(weather1.getComfortable().getDataDate());
         assertNotNull(weather1.getComfortable().getString());
         assertNotNull(weather1.getComfortable().getValue());
