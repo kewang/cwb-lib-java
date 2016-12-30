@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class CwbTest {
     @Before
     public void setup() {
-        Cwb.init("CWB_APIKEY");
+        Cwb.init(System.getenv("CWB_APIKEY"));
     }
 
     @Test
