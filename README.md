@@ -21,3 +21,34 @@
 ```groovy
 compile 'tw.kewang:cwb:0.1.0'
 ```
+
+## How to use
+
+At first, you must add api key.
+
+```java
+Cwb.init(System.getenv("CWB_APIKEY"));
+```
+
+### Get Future Weather By Town
+
+```java
+FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", System.currentTimeMillis() + 86400 * 1000 * 1);
+
+System.out.println(weather1.getDescription().getStartDate());
+System.out.println(weather1.getDescription().getEndDate());
+System.out.println(weather1.getDescription().getDetail());
+System.out.println(weather1.getDescription().getShort());
+System.out.println(weather1.getComfortable().getDataDate());
+System.out.println(weather1.getComfortable().getString());
+System.out.println(weather1.getComfortable().getValue());
+System.out.println(weather1.getApparent());
+System.out.println(weather1.getTemperature());
+System.out.println(weather1.getPoP());
+System.out.println(weather1.getRH());
+System.out.println(weather1.getWind().getDataDate());
+System.out.println(weather1.getWind().getDirectionDetail());
+System.out.println(weather1.getWind().getDirectionShort());
+System.out.println(weather1.getWind().getScale());
+System.out.println(weather1.getWind().getSpeed());
+```
