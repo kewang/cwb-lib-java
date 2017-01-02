@@ -73,7 +73,7 @@ public class CwbTest {
         System.out.println(weather1.getDescription().getDetail());
         System.out.println(weather1.getDescription().getShort());
         System.out.println(weather1.getComfortable().getDataDate());
-        System.out.println(weather1.getComfortable().getString());
+        System.out.println(weather1.getComfortable().getDescription());
         System.out.println(weather1.getComfortable().getValue());
         System.out.println(weather1.getApparent());
         System.out.println(weather1.getTemperature());
@@ -90,7 +90,7 @@ public class CwbTest {
         assertNotNull(weather1.getDescription().getDetail());
         assertNotNull(weather1.getDescription().getShort());
         assertNotNull(weather1.getComfortable().getDataDate());
-        assertNotNull(weather1.getComfortable().getString());
+        assertNotNull(weather1.getComfortable().getDescription());
         assertNotNull(weather1.getComfortable().getValue());
         assertNotNull(weather1.getApparent());
         assertNotNull(weather1.getTemperature());
