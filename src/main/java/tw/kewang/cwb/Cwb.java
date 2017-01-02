@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import tw.kewang.cwb.datalist.FD0047;
 import tw.kewang.cwb.pretty.FutureWeatherByCity;
 import tw.kewang.cwb.pretty.FutureWeatherByTown;
+import tw.kewang.cwb.utils.Constants;
 
 import java.util.Date;
 
@@ -47,14 +48,16 @@ public class Cwb {
         return sender.sendFutureWeatherByCity(city);
     }
 
-    public static FutureWeatherByTown getFutureWeatherByTown(String data, long timestamp) {
+    public static FutureWeatherByTown getFutureWeatherByTown(String data, float afterHours) {
         Geocode geocode = Geocode.find(data);
 
         if (geocode == null) {
             return new FutureWeatherByTown();
         }
 
-        return getFutureWeatherByTown(geocode, new Date(timestamp));
+        Date date = new Date(System.currentTimeMillis() + (long) (Constants.ONE_HOUR * afterHours));
+
+        return getFutureWeatherByTown(geocode, date);
     }
 
     public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, long timestamp) {
