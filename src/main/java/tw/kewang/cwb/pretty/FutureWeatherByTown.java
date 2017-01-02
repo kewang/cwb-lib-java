@@ -101,7 +101,7 @@ public class FutureWeatherByTown {
     }
 
     /**
-     * 取得鄉對名稱
+     * 取得鄉鎮名稱
      *
      * @return
      */
@@ -114,7 +114,7 @@ public class FutureWeatherByTown {
     }
 
     /**
-     * 取得經過時間篩選遺的氣象資料
+     * 取得經過時間篩選過的氣象資料
      *
      * @return
      */
