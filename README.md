@@ -33,7 +33,7 @@ Cwb.init(System.getenv("CWB_APIKEY"));
 ### Get Future Weather By Town
 
 ```java
-FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", System.currentTimeMillis() + 86400 * 1000 * 1);
+FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 2);
 
 System.out.println(weather1.getDescription().getStartDate());
 System.out.println(weather1.getDescription().getEndDate());
