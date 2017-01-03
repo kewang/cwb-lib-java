@@ -31,6 +31,8 @@ public class FutureWeatherByTown {
     private void buildPrettyWeatherElements() {
         prettyWeatherElements = new ArrayList<>();
         description = new Description();
+        comfortable = new Comfortable();
+        wind = new Wind();
 
         for (WeatherElement weatherElement : location.getWeatherElement()) {
             Date resultDate = new Date(0);
@@ -58,9 +60,9 @@ public class FutureWeatherByTown {
                             description.setDetail(time.getElementValue());
                         }
                     } else {
-                        PrettyWeatherElement prettyWeatherElement = new PrettyWeatherElement()
-                                .setName(elementName).setMeasure(weatherElement.getElementMeasure())
-                                .setValue(time.getElementValue()).setStartDate(startTime).setEndDate(endTime);
+                        PrettyWeatherElement prettyWeatherElement = new PrettyWeatherElement().setName(elementName)
+                                .setMeasure(weatherElement.getElementMeasure()).setValue(time.getElementValue())
+                                .setStartDate(startTime).setEndDate(endTime);
 
                         prettyWeatherElements.add(prettyWeatherElement);
 
@@ -71,10 +73,10 @@ public class FutureWeatherByTown {
 
             if (resultTime != null) {
                 if (elementName.equals("CI")) {
-                    comfortable = new Comfortable().setDescription(resultTime.getParameter().get(0).getParameterValue())
+                    comfortable.setDescription(resultTime.getParameter().get(0).getParameterValue())
                             .setValue(Float.valueOf(resultTime.getElementValue())).setDataDate(resultDate);
                 } else if (elementName.equals("Wind")) {
-                    wind = new Wind().setDataDate(resultDate);
+                    wind.setDataDate(resultDate);
 
                     for (Parameter parameter : resultTime.getParameter()) {
                         String parameterName = parameter.getParameterName();

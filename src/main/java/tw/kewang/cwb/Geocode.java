@@ -27,6 +27,11 @@ public class Geocode {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return code + ": " + name;
+    }
+
     public static Geocode find(String data) {
         Geocode result = MAPS.get(data);
 

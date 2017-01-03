@@ -102,4 +102,43 @@ public class CwbTest {
         assertNotNull(weather1.getWind().getScale());
         assertNotNull(weather1.getWind().getSpeed());
     }
+
+    @Test
+    public void testGetFutureWeatherByTownWithWeatherElementsExceed() {
+        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 100);
+
+        System.out.println(weather1.getDescription().getStartDate());
+        System.out.println(weather1.getDescription().getEndDate());
+        System.out.println(weather1.getDescription().getDetail());
+        System.out.println(weather1.getDescription().getShort());
+        System.out.println(weather1.getComfortable().getDataDate());
+        System.out.println(weather1.getComfortable().getDescription());
+        System.out.println(weather1.getComfortable().getValue());
+        System.out.println(weather1.getApparent());
+        System.out.println(weather1.getTemperature());
+        System.out.println(weather1.getPoP());
+        System.out.println(weather1.getRH());
+        System.out.println(weather1.getWind().getDataDate());
+        System.out.println(weather1.getWind().getDirectionDetail());
+        System.out.println(weather1.getWind().getDirectionShort());
+        System.out.println(weather1.getWind().getScale());
+        System.out.println(weather1.getWind().getSpeed());
+
+        assertNotNull(weather1.getDescription().getStartDate());
+        assertNotNull(weather1.getDescription().getEndDate());
+        assertNotNull(weather1.getDescription().getDetail());
+        assertNotNull(weather1.getDescription().getShort());
+        assertNotNull(weather1.getComfortable().getDataDate());
+        assertNotNull(weather1.getComfortable().getDescription());
+        assertNotNull(weather1.getComfortable().getValue());
+        assertNotNull(weather1.getApparent());
+        assertNotNull(weather1.getTemperature());
+        assertNotNull(weather1.getPoP());
+        assertNotNull(weather1.getRH());
+        assertNotNull(weather1.getWind().getDataDate());
+        assertNotNull(weather1.getWind().getDirectionDetail());
+        assertNotNull(weather1.getWind().getDirectionShort());
+        assertNotNull(weather1.getWind().getScale());
+        assertNotNull(weather1.getWind().getSpeed());
+    }
 }

@@ -1,6 +1,8 @@
 package tw.kewang.cwb;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tw.kewang.cwb.datalist.FD0047;
 import tw.kewang.cwb.pretty.FutureWeatherByCity;
 import tw.kewang.cwb.pretty.FutureWeatherByTown;
@@ -9,6 +11,8 @@ import tw.kewang.cwb.utils.Constants;
 import java.util.Date;
 
 public class Cwb {
+    private static final Logger LOG = LoggerFactory.getLogger(Cwb.class);
+
     private static String apiKey;
     private static CwbSender sender = new CwbSender();
     private static boolean init;
@@ -76,6 +80,8 @@ public class Cwb {
 
         Date date = new Date(System.currentTimeMillis() + (long) (Constants.ONE_HOUR * afterHours));
 
+        LOG.debug("getFutureWeatherByTown: {}, {}", geocode.toString(), date.toString());
+
         return getFutureWeatherByTown(geocode, date);
     }
 
@@ -88,6 +94,8 @@ public class Cwb {
      */
     public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, float afterHours) {
         Date date = new Date(System.currentTimeMillis() + (long) (Constants.ONE_HOUR * afterHours));
+
+        LOG.debug("getFutureWeatherByTown: {}, {}", geocode.toString(), date.toString());
 
         return getFutureWeatherByTown(geocode, date);
     }
@@ -105,6 +113,8 @@ public class Cwb {
         if (city == null) {
             return new FutureWeatherByTown();
         }
+
+        LOG.debug("getFutureWeatherByTown: {}, {}", geocode.toString(), date.toString());
 
         return sender.sendFutureWeatherByTown(city, geocode, date);
     }
