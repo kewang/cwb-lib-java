@@ -105,7 +105,7 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByTownWithWeatherElementsExceed() {
-        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 100);
+        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 10);
 
         System.out.println(weather1.getDescription().getStartDate());
         System.out.println(weather1.getDescription().getEndDate());

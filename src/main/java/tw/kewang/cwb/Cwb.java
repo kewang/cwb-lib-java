@@ -95,7 +95,7 @@ public class Cwb {
     public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, float afterHours) {
         Date date = new Date(System.currentTimeMillis() + (long) (Constants.ONE_HOUR * afterHours));
 
-        LOG.debug("getFutureWeatherByTown: {}, {}", geocode.toString(), date.toString());
+        LOG.debug("getFutureWeatherByTown: {}, {}", geocode, date.toString());
 
         return getFutureWeatherByTown(geocode, date);
     }

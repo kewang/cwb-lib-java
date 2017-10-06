@@ -16,6 +16,8 @@ public class Geocode {
 
     private static HashMap<String, Geocode> MAPS = new HashMap<>();
 
+    private static boolean isInit = false;
+
     private String code;
     private String name;
 
@@ -33,6 +35,12 @@ public class Geocode {
     }
 
     public static Geocode find(String data) {
+        if (!isInit) {
+            LOG.error("Uninitialized");
+
+            return null;
+        }
+
         Geocode result = MAPS.get(data);
 
         // find by code
@@ -52,6 +60,10 @@ public class Geocode {
     }
 
     public static void init() {
+        if (isInit) {
+            return;
+        }
+
         ClassLoader classLoader = Geocode.class.getClassLoader();
         File file = new File(classLoader.getResource("geocode.txt").getFile());
 
@@ -73,5 +85,7 @@ public class Geocode {
 
             MAPS.put(parts[0], geocode);
         }
+
+        isInit = true;
     }
 }
