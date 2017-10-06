@@ -3,7 +3,7 @@
 
     <groupId>tw.kewang</groupId>
     <artifactId>cwb</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>cwb</name>
@@ -28,7 +28,7 @@
         <connection>scm:git:git@github.com:kewang/cwb-lib-java.git</connection>
         <developerConnection>scm:git:git@github.com:kewang/cwb-lib-java.git</developerConnection>
         <url>scm:git:git@github.com:kewang/cwb-lib-java.git</url>
-        <tag>v0.1.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
