@@ -1,10 +1,9 @@
 package tw.kewang.cwb;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -64,13 +63,12 @@ public class Geocode {
             return;
         }
 
-        ClassLoader classLoader = Geocode.class.getClassLoader();
-        File file = new File(classLoader.getResource("geocode.txt").getFile());
-
         List<String> lines = new ArrayList<>();
 
         try {
-            lines = FileUtils.readLines(file, Charset.defaultCharset());
+            ClassLoader classLoader = Geocode.class.getClassLoader();
+
+            lines = IOUtils.readLines(classLoader.getResourceAsStream("geocode.txt"), Charset.defaultCharset());
         } catch (IOException e) {
             LOG.error("Caught Exception: ", e);
         }
