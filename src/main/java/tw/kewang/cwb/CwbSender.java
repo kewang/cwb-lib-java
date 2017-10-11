@@ -12,17 +12,16 @@ import tw.kewang.cwb.pretty.FutureWeatherByTown;
 import tw.kewang.cwb.utils.JsonUtils;
 
 import java.io.IOException;
+import java.net.Proxy;
 import java.util.Date;
 
 public class CwbSender {
     private static final Logger LOG = LoggerFactory.getLogger(CwbSender.class);
 
-    private Cwb cwb;
     private OkHttpClient client;
 
-    public CwbSender(Cwb cwb){
-        this.cwb = cwb;
-        this.client = new OkHttpClient.Builder().addInterceptor(new TokenInterceptor(cwb)).build();
+    public CwbSender(Cwb cwb, Proxy proxy) {
+        this.client = new OkHttpClient.Builder().proxy(proxy).addInterceptor(new TokenInterceptor(cwb)).build();
     }
 
     public FutureWeatherByCity sendFutureWeatherByCity(FD0047.ByCity city) {

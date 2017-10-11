@@ -8,6 +8,7 @@ import tw.kewang.cwb.pretty.FutureWeatherByCity;
 import tw.kewang.cwb.pretty.FutureWeatherByTown;
 import tw.kewang.cwb.utils.Constants;
 
+import java.net.Proxy;
 import java.util.Date;
 
 public class Cwb {
@@ -15,6 +16,7 @@ public class Cwb {
 
     private static String apiKey;
     private static CwbSender sender;
+    private static Proxy proxy;
     private static boolean init;
 
     private static final Cwb instance = new Cwb();
@@ -23,6 +25,12 @@ public class Cwb {
     }
 
     public static Cwb getInstance() {
+        return instance;
+    }
+
+    public Cwb proxy(Proxy proxy) {
+        Cwb.proxy = proxy;
+
         return instance;
     }
 
@@ -39,7 +47,7 @@ public class Cwb {
 
         Geocode.init();
 
-        sender = new CwbSender(instance);
+        sender = new CwbSender(instance, proxy);
 
         return instance;
     }
