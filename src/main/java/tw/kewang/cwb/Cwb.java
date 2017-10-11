@@ -14,13 +14,19 @@ public class Cwb {
     private static final Logger LOG = LoggerFactory.getLogger(Cwb.class);
 
     private static String apiKey;
-    private static CwbSender sender = new CwbSender();
+    private static CwbSender sender;
     private static boolean init;
+
+    private static final Cwb instance = new Cwb();
 
     private Cwb() {
     }
 
-    public static void init(String apiKey) {
+    public static Cwb getInstance() {
+        return instance;
+    }
+
+    public Cwb init(String apiKey) {
         if (StringUtils.isEmpty(apiKey)) {
             init = false;
 
@@ -32,9 +38,13 @@ public class Cwb {
         init = true;
 
         Geocode.init();
+
+        sender = new CwbSender(instance);
+
+        return instance;
     }
 
-    public static String getApiKey() {
+    public String getApiKey() {
         return apiKey;
     }
 
@@ -44,7 +54,7 @@ public class Cwb {
      * @param data
      * @return
      */
-    public static FutureWeatherByCity getFutureWeatherByCity(String data) {
+    public FutureWeatherByCity getFutureWeatherByCity(String data) {
         FD0047.ByCity city = FD0047.ByCity.find(data);
 
         if (city == null) {
@@ -60,7 +70,7 @@ public class Cwb {
      * @param city
      * @return
      */
-    public static FutureWeatherByCity getFutureWeatherByCity(FD0047.ByCity city) {
+    public FutureWeatherByCity getFutureWeatherByCity(FD0047.ByCity city) {
         return sender.sendFutureWeatherByCity(city);
     }
 
@@ -71,7 +81,7 @@ public class Cwb {
      * @param afterHours
      * @return
      */
-    public static FutureWeatherByTown getFutureWeatherByTown(String data, float afterHours) {
+    public FutureWeatherByTown getFutureWeatherByTown(String data, float afterHours) {
         Geocode geocode = Geocode.find(data);
 
         if (geocode == null) {
@@ -92,7 +102,7 @@ public class Cwb {
      * @param afterHours
      * @return
      */
-    public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, float afterHours) {
+    public FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, float afterHours) {
         Date date = new Date(System.currentTimeMillis() + (long) (Constants.ONE_HOUR * afterHours));
 
         LOG.debug("getFutureWeatherByTown: {}, {}", geocode, date.toString());
@@ -107,7 +117,7 @@ public class Cwb {
      * @param date
      * @return
      */
-    public static FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, Date date) {
+    public FutureWeatherByTown getFutureWeatherByTown(Geocode geocode, Date date) {
         FD0047.ByCity city = FD0047.ByCity.findByTown(geocode);
 
         if (city == null) {

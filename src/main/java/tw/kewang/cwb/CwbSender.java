@@ -17,7 +17,13 @@ import java.util.Date;
 public class CwbSender {
     private static final Logger LOG = LoggerFactory.getLogger(CwbSender.class);
 
-    private OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new TokenInterceptor()).build();
+    private Cwb cwb;
+    private OkHttpClient client;
+
+    public CwbSender(Cwb cwb){
+        this.cwb = cwb;
+        this.client = new OkHttpClient.Builder().addInterceptor(new TokenInterceptor(cwb)).build();
+    }
 
     public FutureWeatherByCity sendFutureWeatherByCity(FD0047.ByCity city) {
         Request req = new Request.Builder().url("http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-" + city.getDataId()).build();

@@ -9,9 +9,11 @@ import tw.kewang.cwb.pretty.FutureWeatherByTown;
 import static org.junit.Assert.*;
 
 public class CwbTest {
+    private Cwb cwb;
+
     @Before
     public void setup() {
-        Cwb.init(System.getenv("CWB_APIKEY"));
+        cwb = Cwb.getInstance().init(System.getenv("CWB_APIKEY"));
     }
 
     @Test
@@ -23,8 +25,8 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByCity() {
-        FutureWeatherByCity weather1 = Cwb.getFutureWeatherByCity(FD0047.ByCity.CHAIYI_COUNTY);
-        FutureWeatherByCity weather2 = Cwb.getFutureWeatherByCity(FD0047.ByCity.TAIPEI);
+        FutureWeatherByCity weather1 = cwb.getFutureWeatherByCity(FD0047.ByCity.CHAIYI_COUNTY);
+        FutureWeatherByCity weather2 = cwb.getFutureWeatherByCity(FD0047.ByCity.TAIPEI);
 
         assertEquals("嘉義縣", weather1.getName());
         assertEquals("臺北市", weather2.getName());
@@ -32,11 +34,11 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByCityWithString() {
-        FutureWeatherByCity weather1 = Cwb.getFutureWeatherByCity("彰化縣");
-        FutureWeatherByCity weather2 = Cwb.getFutureWeatherByCity("049");
-        FutureWeatherByCity weather3 = Cwb.getFutureWeatherByCity("猜猜看");
-        FutureWeatherByCity weather4 = Cwb.getFutureWeatherByCity("台東縣");
-        FutureWeatherByCity weather5 = Cwb.getFutureWeatherByCity("臺東縣");
+        FutureWeatherByCity weather1 = cwb.getFutureWeatherByCity("彰化縣");
+        FutureWeatherByCity weather2 = cwb.getFutureWeatherByCity("049");
+        FutureWeatherByCity weather3 = cwb.getFutureWeatherByCity("猜猜看");
+        FutureWeatherByCity weather4 = cwb.getFutureWeatherByCity("台東縣");
+        FutureWeatherByCity weather5 = cwb.getFutureWeatherByCity("臺東縣");
 
         assertEquals("彰化縣", weather1.getName());
         assertEquals("基隆市", weather2.getName());
@@ -47,8 +49,8 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByTown() {
-        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 24);
-        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown("猜猜看", 24);
+        FutureWeatherByTown weather1 = cwb.getFutureWeatherByTown("新莊區", 24);
+        FutureWeatherByTown weather2 = cwb.getFutureWeatherByTown("猜猜看", 24);
 
         assertEquals("新莊區", weather1.getName());
         assertNotNull(weather1.getWeatherElements());
@@ -57,8 +59,8 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByTownWithGeocode() {
-        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown(Geocode.find("新莊區"), 24);
-        FutureWeatherByTown weather2 = Cwb.getFutureWeatherByTown(Geocode.find("猜猜看"), 24);
+        FutureWeatherByTown weather1 = cwb.getFutureWeatherByTown(Geocode.find("新莊區"), 24);
+        FutureWeatherByTown weather2 = cwb.getFutureWeatherByTown(Geocode.find("猜猜看"), 24);
 
         assertEquals("新莊區", weather1.getName());
         assertEquals("找不到資料", weather2.getName());
@@ -66,7 +68,7 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByTownWithWeatherElements() {
-        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 2);
+        FutureWeatherByTown weather1 = cwb.getFutureWeatherByTown("新莊區", 2);
 
         System.out.println(weather1.getDescription().getStartDate());
         System.out.println(weather1.getDescription().getEndDate());
@@ -105,7 +107,7 @@ public class CwbTest {
 
     @Test
     public void testGetFutureWeatherByTownWithWeatherElementsExceed() {
-        FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 10);
+        FutureWeatherByTown weather1 = cwb.getFutureWeatherByTown("新莊區", 10);
 
         System.out.println(weather1.getDescription().getStartDate());
         System.out.println(weather1.getDescription().getEndDate());
