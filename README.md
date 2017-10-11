@@ -12,14 +12,14 @@
 <dependency>
   <groupId>tw.kewang</groupId>
   <artifactId>cwb</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.2</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-compile 'tw.kewang:cwb:0.1.0'
+compile 'tw.kewang:cwb:0.1.2'
 ```
 
 ## How to use
