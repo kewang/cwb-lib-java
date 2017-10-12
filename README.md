@@ -12,14 +12,14 @@
 <dependency>
   <groupId>tw.kewang</groupId>
   <artifactId>cwb</artifactId>
-  <version>0.1.2</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-compile 'tw.kewang:cwb:0.1.2'
+compile 'tw.kewang:cwb:0.2.0'
 ```
 
 ## How to use
@@ -27,13 +27,13 @@ compile 'tw.kewang:cwb:0.1.2'
 At first, you must add api key.
 
 ```java
-Cwb.init(System.getenv("CWB_APIKEY"));
+Cwb cwb = Cwb.getInstance().init(System.getenv("CWB_APIKEY"));
 ```
 
 ### Get Future Weather By Town
 
 ```java
-FutureWeatherByTown weather1 = Cwb.getFutureWeatherByTown("新莊區", 2);
+FutureWeatherByTown weather1 = cwb.getFutureWeatherByTown("新莊區", 2);
 
 System.out.println(weather1.getDescription().getStartDate());
 System.out.println(weather1.getDescription().getEndDate());
